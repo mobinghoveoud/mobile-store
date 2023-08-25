@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Variant{% else %}Create Variant{% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align: center">{% if form.instance.pk %}Edit Variant{% else %}Create Variant{% endif %}</h1>
+
+    <form class="my-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.mobile.id_for_label }}">Mobile:</label>
+        {{ form.mobile }}
+
+        <label for="{{ form.color.id_for_label }}">Color:</label>
+        {{ form.color }}
+
+        <label for="{{ form.size.id_for_label }}">Size:</label>
+        {{ form.size }}
+
+        <label for="{{ form.image.id_for_label }}">Image:</label>
+        {{ form.image }}
+
+        <div style="text-align: center">
+            <input type="submit" value="Save">
+        </div>
+    </form>
+
+{% endblock %}

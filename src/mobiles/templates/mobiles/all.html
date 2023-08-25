@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    All mobiles List
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align: center">All Mobiles List</h1>
+    {% if page_obj %}
+        <table>
+            <tr>
+                <th>Number</th>
+                <th>Brand name</th>
+                <th>Nationality name</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Screen size</th>
+                <th>Manufacturing Country</th>
+                <th>Prices</th>
+                <th>Image</th>
+            </tr>
+            {% for mobile in page_obj %}
+                <tr>
+                    <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
+                    <td>{{ mobile.0 }}</td>
+                    <td>{{ mobile.1 }}</td>
+                    <td>{{ mobile.2 }}</td>
+                    <td>{{ mobile.3 }}</td>
+                    <td>{{ mobile.4 }}</td>
+                    <td>{{ mobile.5 }}</td>
+                    <td>
+                        {% for price in mobile.6 %}
+                            <p>{{ price }}</p>
+                        {% endfor %}
+                    </td>
+                    <td><img src="{{ mobile.7 }}" alt="" width="150" height="100"></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <p>No mobile found.</p>
+    {% endif %}
+
+{% endblock %}

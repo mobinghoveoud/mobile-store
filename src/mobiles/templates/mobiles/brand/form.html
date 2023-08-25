@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Brand{% else %}Create Brand{% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align: center">{% if form.instance.pk %}Edit Brand{% else %}Create Brand{% endif %}</h1>
+
+    <form class="my-form" method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.name.id_for_label }}">Brand Name:</label>
+        {{ form.name }}
+
+        <label for="{{ form.nationality.id_for_label }}">Nationality name:</label>
+        {{ form.nationality }}
+
+        <div style="text-align: center">
+            <input type="submit" value="Save">
+        </div>
+    </form>
+
+{% endblock %}

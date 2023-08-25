@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Price History List
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align: center">Price History List</h1>
+    <a href="{% url 'mobiles:price-history-create' %}">Create New Price History</a>
+    {% if page_obj %}
+        <table>
+            <tr>
+                <th>Number</th>
+                <th>Variant</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            {% for price_history in page_obj %}
+                <tr>
+                    <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
+                    <td>{{ price_history.variant }}</td>
+                    <td>{{ price_history.price }}</td>
+                    <td>{{ price_history.get_status_display }}</td>
+                    <td>{{ price_history.formatted_date }}</td>
+                    <td>
+                        <a class="edit-btn" href="{% url 'mobiles:price-history-edit' price_history.pk %}">Edit</a>
+
+                        <form class="delete-form" action="{% url 'mobiles:price-history-delete' price_history.pk %}"
+                              method="post">
+                            {% csrf_token %}
+
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <p>No price histories found.</p>
+    {% endif %}
+
+{% endblock %}

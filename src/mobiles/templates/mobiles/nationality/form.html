@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Nationality{% else %}Create Nationality{% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align: center">{% if form.instance.pk %}Edit Nationality{% else %}Create Nationality{% endif %}</h1>
+
+    <form class="my-form" method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <label for="{{ form.name.id_for_label }}">Nationality Name:</label>
+        {{ form.name }}
+
+        <div style="text-align: center">
+            <input type="submit" value="Save">
+        </div>
+    </form>
+
+{% endblock %}

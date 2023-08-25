@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Nationality List
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center">Nationality List</h1>
+    <a href="{% url 'mobiles:nationality-create' %}">Create New Nationality</a>
+
+    {% if page_obj %}
+        <table>
+            <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            {% for nationality in page_obj %}
+                <tr>
+                    <td>{{ forloop.counter|add:page_obj.start_index|add:-1 }}</td>
+                    <td>{{ nationality.name }}</td>
+                    <td>
+                        <a class="edit-btn" href="{% url 'mobiles:nationality-edit' nationality.pk %}">Edit</a>
+                        <form class="delete-form" action="{% url 'mobiles:nationality-delete' nationality.pk %}"
+                              method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <p>No nationalities found.</p>
+    {% endif %}
+{% endblock %}

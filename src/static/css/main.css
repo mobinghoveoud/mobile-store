@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 15px;
+}
+
+h1 {
+    color: #007BFF;
+    margin-bottom: 30px;
+}
+
+a {
+    display: inline-block;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+.edit-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.my-form {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+input[type="checkbox"] { /* Style the checkbox input */
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.info {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.info p {
+    margin: 0;
+    color: #777;
+}
+
+.delete-form {
+    display: inline-block;
+}
+
+.delete-form input[type="submit"] {
+    background-color: #dc3545;
+}
+
+.delete-form input[type="submit"]:hover {
+    background-color: #c82333;
+}
