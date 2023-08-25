@@ -1,0 +1,40 @@
+version: '1.0'
+name: mobile_store
+
+services:
+  web:
+    container_name: mobile_store_web
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/src
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    restart: on-failure
+    networks:
+      - main
+
+  postgres:
+    container_name: postgres
+    image: postgres:15.3-bullseye
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - main
+    ports:
+      - 5432:5432
+    restart: on-failure
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  main:
+
+volumes:
+  postgres_data:
