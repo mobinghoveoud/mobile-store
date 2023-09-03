@@ -1,0 +1,388 @@
+openapi: 3.0.3
+info:
+  title: Mobile Store Interview
+  version: 1.0.0
+  description: Mobile manager
+paths:
+  /api/korea-brands/:
+    get:
+      operationId: api_korea_brands_list
+      description: Get a list of brands from Korea along with their related mobiles
+        and variants.
+      parameters:
+      - in: query
+        name: flat
+        schema:
+          type: integer
+        description: Set to 1 to get the flat representation of the data.
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brand'
+          description: ''
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+              examples:
+                '406':
+                  value:
+                    error: Parameter 'flat' is invalid!
+          description: Flat parameter is missing.
+  /api/mobile-brands/:
+    get:
+      operationId: api_mobile_brands_list
+      description: Get a list of mobiles filtered by brand names.
+      parameters:
+      - in: query
+        name: brands
+        schema:
+          type: string
+        description: Comma-separated brand names to filter mobiles by.
+        required: true
+      - in: query
+        name: flat
+        schema:
+          type: integer
+        description: Set to 1 to get the flat representation of the data.
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mobile'
+          description: ''
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+              examples:
+                '406':
+                  value:
+                    error: Parameter 'flat' is invalid!
+          description: Flat parameter is missing.
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+              examples:
+                '406':
+                  value:
+                    error: Parameter 'brands' is missing!
+          description: Brands parameter is missing.
+  /api/same-nationality/:
+    get:
+      operationId: api_same_nationality_list
+      description: Get a list of mobiles with the same brand nationality and country.
+      parameters:
+      - in: query
+        name: flat
+        schema:
+          type: integer
+        description: Set to 1 to get the flat representation of the data.
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mobile'
+          description: ''
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+              examples:
+                '406':
+                  value:
+                    error: Parameter 'flat' is invalid!
+          description: Flat parameter is missing.
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Brand:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        nationality:
+          type: string
+        mobiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mobile'
+          readOnly: true
+      required:
+      - id
+      - mobiles
+      - name
+      - nationality
+    Mobile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        brand:
+          type: string
+        model:
+          type: string
+          title: Mobile model
+          maxLength: 150
+        country:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+          readOnly: true
+      required:
+      - brand
+      - country
+      - id
+      - model
+      - variants
+    PriceHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        variant:
+          type: string
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,9}(?:\.\d{0,0})?$
+          title: Variant price
+        status:
+          type: string
+        date:
+          type: string
+      required:
+      - date
+      - id
+      - price
+      - status
+      - variant
+    Variant:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        mobile:
+          type: string
+        color:
+          type: string
+          title: Mobile color
+          maxLength: 100
+        size:
+          type: number
+          format: double
+          minimum: 1
+          title: Mobile screen size
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceHistory'
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          title: Mobile image
+      required:
+      - color
+      - id
+      - image
+      - mobile
+      - prices
+      - size
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
