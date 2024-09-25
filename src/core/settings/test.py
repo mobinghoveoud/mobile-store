@@ -2,6 +2,8 @@ from .base import *  # noqa: F403
 
 DEBUG = False
 
+LANGUAGE_CODE = "en"
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

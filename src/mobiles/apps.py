@@ -8,4 +8,4 @@ class MobileConfig(AppConfig):
     verbose_name = _("Mobile app")
 
     def ready(self):
-        pass
+        import mobiles.signals  # noqa
