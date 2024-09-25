@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+
+env:
+  DJANGO_SETTINGS_MODULE: core.settings.test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: 'pip'
+          cache-dependency-path: 'src/requirements.txt'
+
+      - name: Update pip & Install dependencies
+        working-directory: ./src
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: ./src
+        run: python manage.py test
