@@ -8,8 +8,6 @@ implemented Django views and DRF APIs, users can easily add new mobile phones, u
 the data they need. The system is designed to streamline inventory management, ensuring accurate and up-to-date
 information for the store's mobile stock.
 
----
-
 ## Table of Contents
 
 1. [Key Features](#key-features)
@@ -32,8 +30,6 @@ information for the store's mobile stock.
     + [Running pre-commit manually](#running-pre-commit-manually)
     + [Skipping pre-commit hooks](#skipping-pre-commit-hooks)
 
----
-
 ## Key Features
 
 - **Django & DRF-Based**: This project is built using Django and Django REST Framework (DRF), utilizing both traditional
@@ -54,8 +50,6 @@ information for the store's mobile stock.
 
 - **Detailed Documentation**: All aspects of the project have been thoroughly documented in both the `README.md` and
   the `docs` section, providing detailed explanations of the system's functionality.
-
----
 
 ## Getting Started
 
@@ -109,8 +103,6 @@ information for the store's mobile stock.
 
 3. Access the project at `http://localhost:80`.
 
----
-
 ## Running the Tests
 
 You can run the tests with this command:
@@ -118,8 +110,6 @@ You can run the tests with this command:
    ```commandline
    python manage.py test --settings=core.settings.test
    ```
-
----
 
 ## Project Structure
 
@@ -144,12 +134,14 @@ The project has multiple settings files:
     - Configuration for the testing environment.
     - Inherits from the development settings but uses a separate test database and some test-specific settings.
 
++ Production Settings
+    - File: [settings/production.py](src/core/settings/production.py)
+    - Configuration for the production environment.
+
 ### Static and Media Files
 
 The project uses Django's built-in static and media file handling. Static files (CSS) are stored in the `static`
 directory, while media files (uploaded images) are stored in the `media` directory.
-
----
 
 ## API Specification
 
@@ -226,8 +218,6 @@ GET /api/same-nationality/
 - **406 Not Acceptable**: Returns an error response if the value provided for the `flat` parameter is not a valid
   integer.
 
----
-
 ## Swagger Documentation
 
 The project includes Swagger documentation for the API routes. Below are the Swagger routes and their descriptions:
@@ -245,8 +235,7 @@ For example:
 
 - Swagger UI: `http://localhost:80/api/schema/swagger-ui/`
 - ReDoc: `http://localhost:80/api/schema/redoc/`
-
----
+- Schema YML File: [schema.yml](src/schema.yml)
 
 ## Pre-commit
 
