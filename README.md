@@ -51,6 +51,8 @@ information for the store's mobile stock.
 - **Detailed Documentation**: All aspects of the project have been thoroughly documented in both the `README.md` and
   the `docs` section, providing detailed explanations of the system's functionality.
 
+![ER Diagram](docs/models.png "ER Diagram")
+
 ## Getting Started
 
 ### Prerequisites
